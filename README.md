@@ -138,3 +138,11 @@ cd ../code-challenge/ && pnpm run test
 - Inversify for production
 - Support multi user chat
 - Busy User Handling : can be improved to let target user know that someone is trying to reach them. 
+
+### Screenshots
+
+![Screenshot 1](./screenshots/1.png)
+![Screenshot 2](./screenshots/2.png)
+![Screenshot 3](./screenshots/3.png)
+![Screenshot 4](./screenshots/4.png)
+

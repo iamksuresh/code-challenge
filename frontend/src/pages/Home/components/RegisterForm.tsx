@@ -178,7 +178,7 @@ export const RegisterForm = (): ReactElement => {
     <Card>
       <Form layout="vertical" onFinish={handleSubmit}>
         <Title level={3} style={styles.title}>
-          {UI_LABELS.APP_TITLE}
+          Let's Onboard
         </Title>
 
         {/* Name Field */}

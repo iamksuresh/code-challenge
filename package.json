@@ -7,7 +7,7 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "dev": "pnpm run --parallel dev",
+    "dev": "pnpm run build:shared && pnpm run --parallel dev",
     "dev:backend": "pnpm --filter backend dev",
     "dev:frontend": "pnpm --filter frontend dev",
     "start": "pnpm -r run build && pnpm -r run start",
@@ -19,7 +19,6 @@
     "test:backend": "pnpm --filter backend test",
     "test:frontend": "pnpm --filter frontend test",
     "lint": "pnpm run --parallel lint",
-    "clean": "pnpm run --parallel clean && rm -rf node_modules",
-    "install": "pnpm install"
+    "clean": "pnpm run --parallel clean && rm -rf node_modules"
   }
 }
