@@ -1,10 +1,5 @@
 import { useEffect, type ReactNode, type ReactElement } from 'react';
-import {
-  BrowserRouter,
-  Routes as RouterRoutes,
-  Route,
-  useNavigate,
-} from 'react-router';
+import { BrowserRouter, useNavigate } from 'react-router';
 import { io, Socket } from 'socket.io-client';
 import { ConfigProvider } from 'antd';
 
@@ -13,10 +8,9 @@ import { appTheme } from '../themes';
 import { UserProvider } from '../context/UserContext';
 import { ChatProvider, useChat } from '../context/ChatContext';
 
-import { Chat } from './Chat';
-import { Home } from './Home';
+import { AppRoutes } from './routes';
 
-// ─── Socket Configuration ───
+//Socket Configuration
 const socket: Socket = io(config.SOCKET_ENDPOINT, {
   transports: ['websocket', 'polling'],
   autoConnect: true,
@@ -26,7 +20,6 @@ const socket: Socket = io(config.SOCKET_ENDPOINT, {
   reconnectionDelayMax: 5000,
 });
 
-// ─── Navigation Handler Component ───
 
 type NavigationHandlerProps = {
   children: ReactNode;
@@ -44,19 +37,6 @@ const NavigationHandler = ({ children }: NavigationHandlerProps): ReactElement =
 
   return <>{children}</>;
 };
-
-// ─── App Routes ───
-
-const AppRoutes = (): ReactElement => {
-  return (
-    <RouterRoutes>
-      <Route path="/" element={<Home />} />
-      <Route path="/chat/:userId" element={<Chat />} />
-    </RouterRoutes>
-  );
-};
-
-// ─── Main Routes Component ───
 
 export const Routes = (): ReactElement => {
   return (

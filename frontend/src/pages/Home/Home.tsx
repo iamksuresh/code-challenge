@@ -1,3 +1,5 @@
+// Landing page
+
 import { useMemo, type ReactElement, type CSSProperties } from 'react';
 import { Badge, Card, Alert, Flex, Row, Col, Layout, Typography, Button, theme } from 'antd';
 import { useUser } from '../../context/UserContext';
@@ -12,9 +14,6 @@ import { gradients } from '../../themes';
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
-
-// ─── Styles Hook ───
-
 interface HomeStyles {
   layout: CSSProperties;
   header: CSSProperties;
@@ -81,8 +80,6 @@ const useStyles = (): HomeStyles => {
     [token]
   );
 };
-
-// ─── Component ───
 
 export const Home = (): ReactElement => {
   const { isRegistered, isConnected, registrationError } = useUser();

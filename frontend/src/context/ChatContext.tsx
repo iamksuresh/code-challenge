@@ -26,8 +26,6 @@ import {
 import { useUser } from './UserContext';
 import { INFO_MESSAGES } from '../constants/messages';
 
-// ─── Context Types ───
-
 type ChatContextValue = {
   session: ChatSession | null;
   messages: ChatMessage[];
@@ -45,14 +43,12 @@ type ChatContextValue = {
 
 const ChatContext = createContext<ChatContextValue | null>(null);
 
-// ─── Provider Props ───
 
 type ChatProviderProps = {
   children: ReactNode;
   socket: Socket;
 };
 
-// ─── Provider Component ───
 
 export const ChatProvider = ({ children, socket }: ChatProviderProps): ReactElement => {
   const { user } = useUser();
@@ -64,7 +60,6 @@ export const ChatProvider = ({ children, socket }: ChatProviderProps): ReactElem
   const [requestError, setRequestError] = useState<string | null>(null);
   const [busyUser, setBusyUser] = useState<{ connectionId: string; name: string } | null>(null);
 
-  // ─── Socket Event Handlers ───
 
   useEffect(() => {
     const handleIncomingRequest = (payload: ChatIncomingRequestPayload): void => {
@@ -156,7 +151,7 @@ export const ChatProvider = ({ children, socket }: ChatProviderProps): ReactElem
     };
 
     const handleRequestCancelled = (payload: ChatRequestCancelledPayload): void => {
-      // Clear the incoming request if it was from the user who cancelled
+      // Clear the incoming request
       setIncomingRequest((prev) => {
         if (prev && prev.from === payload.from) {
           return null;

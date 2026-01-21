@@ -17,8 +17,6 @@ import { StoredUser } from '../types';
 import { saveUser, getUser, removeUser } from '../utils/localStorage';
 import { api } from '../services/api';
 
-// ─── Context Types ───
-
 type UserContextValue = {
   user: StoredUser | null;
   isRegistered: boolean;
@@ -32,14 +30,10 @@ type UserContextValue = {
 
 const UserContext = createContext<UserContextValue | null>(null);
 
-// ─── Provider Props ───
-
 type UserProviderProps = {
   children: ReactNode;
   socket: Socket;
 };
-
-// ─── Provider Component ───
 
 export const UserProvider = ({ children, socket }: UserProviderProps): ReactElement => {
   const [user, setUser] = useState<StoredUser | null>(null);
@@ -48,8 +42,6 @@ export const UserProvider = ({ children, socket }: UserProviderProps): ReactElem
   const [registrationError, setRegistrationError] = useState<string | null>(null);
 
   const isRegistered = user !== null;
-
-  // ─── Socket Connection Handling ───
 
   useEffect(() => {
     const handleConnect = (): void => {
@@ -109,8 +101,6 @@ export const UserProvider = ({ children, socket }: UserProviderProps): ReactElem
     };
   }, [socket]);
 
-  // ─── Initialize from localStorage ───
-
   useEffect(() => {
     const savedUser = getUser();
     if (savedUser && socket.connected) {
@@ -118,7 +108,6 @@ export const UserProvider = ({ children, socket }: UserProviderProps): ReactElem
     }
   }, [socket]);
 
-  // ─── Actions ───
 
   const register = useCallback(
     async (connectionId: string, name: string): Promise<boolean> => {
@@ -162,7 +151,6 @@ export const UserProvider = ({ children, socket }: UserProviderProps): ReactElem
     []
   );
 
-  // ─── Context Value ───
 
   const value: UserContextValue = {
     user,
@@ -177,8 +165,6 @@ export const UserProvider = ({ children, socket }: UserProviderProps): ReactElem
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
-
-// ─── Hook ───
 
 export const useUser = (): UserContextValue => {
   const context = useContext(UserContext);

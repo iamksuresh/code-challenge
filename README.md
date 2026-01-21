@@ -11,6 +11,7 @@ A real-time 1:1 chat application built with React, Socket.IO, and TypeScript.
 - **Multi-Tab Prevention** - Prevents same user from opening multiple tabs
 - **Chat History** - Persisted locally in browser storage
 - **Auto-Reconnection** - Automatic reconnection on network issues
+- **Context API** - React context api to manage state
 
 ## Architecture Highlights
 
@@ -96,6 +97,7 @@ A real-time 1:1 chat application built with React, Socket.IO, and TypeScript.
 - Socket.IO Client
 - Ant design
 - Ant themes token 
+- RTL
 
 ### Backend
 - Node.js
@@ -119,7 +121,6 @@ Backend logs are stored in `backend/logs/`:
 
 ## Testing
 
-### Backend
 ```bash
 cd ../code-challenge/ && pnpm run test
 ```
