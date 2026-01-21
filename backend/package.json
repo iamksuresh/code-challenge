@@ -2,23 +2,33 @@
   "name": "backend",
   "version": "1.0.0",
   "scripts": {
+    "dev": "nodemon server.ts",
     "start": "nodemon server.ts",
     "test": "vitest",
-    "build": "tsc"
+    "build": "tsc",
+    "clean": "rm -rf dist node_modules"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
-    "@types/socket.io": "^3.0.2",
+    "@types/supertest": "^6.0.3",
+    "@types/uuid": "^10.0.0",
     "nodemon": "^3.1.9",
     "prettier": "^3.4.2",
-    "ts-jest": "^29.2.5",
+    "socket.io-client": "^4.8.3",
+    "supertest": "^7.2.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3",
     "vitest": "^3.0.1"
   },
   "dependencies": {
+    "@wave-chat/shared": "workspace:*",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^5.0.1",
-    "socket.io": "^4.8.1"
+    "socket.io": "^4.8.1",
+    "uuid": "^11.0.5",
+    "winston": "^3.17.0",
+    "zod": "^3.24.1"
   }
 }

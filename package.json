@@ -1,0 +1,25 @@
+{
+  "name": "@wave-chat/monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm run --parallel dev",
+    "dev:backend": "pnpm --filter backend dev",
+    "dev:frontend": "pnpm --filter frontend dev",
+    "start": "pnpm -r run build && pnpm -r run start",
+    "build": "pnpm run build:shared && pnpm run --parallel --filter=!@wave-chat/shared build",
+    "build:shared": "pnpm --filter @wave-chat/shared build",
+    "build:backend": "pnpm --filter backend build",
+    "build:frontend": "pnpm --filter frontend build",
+    "test": "pnpm run --parallel test",
+    "test:backend": "pnpm --filter backend test",
+    "test:frontend": "pnpm --filter frontend test",
+    "lint": "pnpm run --parallel lint",
+    "clean": "pnpm run --parallel clean && rm -rf node_modules",
+    "install": "pnpm install"
+  }
+}

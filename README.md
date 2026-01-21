@@ -1,45 +1,140 @@
-# CloudWave Full Stack Code Challenge ~ Wave Chat
-CloudWave have provided scaffolding for both the front and back end of the challenge, to save you time.
+# Wave Chat
 
-## Front-end
+A real-time 1:1 chat application built with React, Socket.IO, and TypeScript.
 
-### Configuration
-This application uses Vite, ReactJS, Typescript and vitest for testing. `tsconfig.json` has been pre-configured for the environment and hot reloading has been set up for you.
+## Features
 
-⚠️ **Some files may throw typescript errors due to empty placeholder files or commented out code.**
+- **User Registration** - Register with a unique connection ID and display name
+- **Real-time Chat** - Instant messaging via WebSocket connections
+- **Chat Requests** - Send and receive chat requests between users
+- **Busy User Handling** - Handle cases when target user is already in a chat (POC only)
+- **Multi-Tab Prevention** - Prevents same user from opening multiple tabs
+- **Chat History** - Persisted locally in browser storage
+- **Auto-Reconnection** - Automatic reconnection on network issues
 
-&nbsp;
-### Linting
-There's `stylelint` for linting SCSS files and `eslint` for linting code. You can lint the application with the `lint` and `lint:styles` commands in `package.json`.
+## Architecture Highlights
 
-⚠️ **Some files may throw linting warnings due to commented out scaffolding code.**
+- **Manual Dependency Injection** - Clean separation of concerns in backend
+- **Typed WebSocket Events** - Compile-time safety for all socket communications
+- **Repository Pattern** - In-memory user storage with interface abstraction
+- **React Context** - Centralized state management for user and chat data
+- **monorepo** - Using monorepo
+- **websocket Events Types** - Included in shared package, common for both UI and BE 
+- **Logs** -  logs can be accessed in /backend/logs/ folder
 
-&nbsp;
-### UI & Components
-We've added `ant design` for you to use, which comes with a selection of UI React components and style classes out of the box.
+## Project Structure
 
-Read more [here](https://ant.design/).
+```
+├── shared/    # Shared WebSocket types package
+├── backend/   # backend logic - 3 layered with Manual DI
+├── frontend/  # FE code
 
-Not comfortable with Ant design? Feel free to use native HTML elements or another component library, such as `material-ui` or `react-bootstrap`.
+```
 
-&nbsp;
-### Routing
-This challenge uses `react-router` for routing.
+## Getting Started
 
-&nbsp;
-### Socket IO
-Read more [here](https://socket.io/). The examples on the home page should be enough for you to complete the challenge.
+### Prerequisites
 
-&nbsp;
-## Back-end
+- Node.js (v18+)
+- pnpm
 
-### Configuration
-This application uses typescript and jest. `tsconfig.json` has been pre-configured for the environment.
+### Installation
 
-&nbsp;
-### Socket IO
-The HTTP server with socket.io are already connected. The socket server will automatically run by default on port 3001.
+1. **Install dependencies:**
+   ```bash
+   cd ../code-challenge/ && pnpm install
+   ```
 
-&nbsp;
-### Hot Reload
-The backend server supports hot reload using `nodemon`. Any changes you make to files will automatically be updated if the server is started with the `start:dev` command.
+### Running the Application
+
+1. **Start the backend server:**
+   ```bash
+   cd ../code-challenge/ && pnpm run dev
+   ```
+   Server runs on `http://localhost:3001`
+   App runs on `http://localhost:5173`
+
+
+## REST API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/chat/connection-id/generate` | Generate a new connection ID |
+| POST | `/chat/connection-id/validate` | Validate a connection ID |
+| POST | `/chat/connection-id/register` | Register a user with connection ID and name |
+
+## WebSocket Events
+
+### Client → Server
+
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `user:register` | `{ connectionId }` | Register user with socket |
+| `chat:request` | `{ targetConnectionId }` | Request chat with another user |
+| `chat:response` | `{ fromConnectionId, accepted }` | Accept/decline chat request |
+| `chat:message` | `{ message }` | Send chat message |
+| `chat:leave` | `{}` | Leave current chat |
+
+### Server → Client
+
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `user:registered` | `{ success, error? }` | Registration result |
+| `chat:incoming-request` | `{ from, fromName }` | Incoming chat request |
+| `chat:request-result` | `{ success, error?, isBusy?, targetName? }` | Chat request result |
+| `chat:started` | `{ sessionId, partnerId, partnerName, isInitiator }` | Chat session started |
+| `chat:message-received` | `{ id, from, fromName, content, timestamp }` | Message received |
+| `chat:ended` | `{ reason, message }` | Chat ended |
+
+## Tech Stack
+
+### Frontend
+- React 18+
+- TypeScript
+- Vite
+- React Router
+- Socket.IO Client
+- Ant design
+- Ant themes token 
+
+### Backend
+- Node.js
+- Express
+- TypeScript
+- Socket.IO
+- Zod (validation)
+- Winston (logging)
+
+### Shared
+- TypeScript
+- Strongly-typed WebSocket events and payloads
+
+
+
+## Logging
+
+Backend logs are stored in `backend/logs/`:
+- `combined.log` - All logs
+- `error.log` - Errors only
+
+## Testing
+
+### Backend
+```bash
+cd ../code-challenge/ && pnpm run test
+```
+
+### Caveats:
+
+- Test cases can to be improved by integrating e2e testing and more scenarios can be added.
+- UI is minimal for the sake of POC.
+- Use of localStorage - only for POC and not for production.
+
+### Next Action items:
+
+- Improve UI
+- Implement user on-boarding
+- Connect to DB
+- Inversify for production
+- Support multi user chat
+- Busy User Handling : can be improved to let target user know that someone is trying to reach them. 
