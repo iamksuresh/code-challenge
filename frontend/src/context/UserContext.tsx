@@ -56,13 +56,11 @@ export const UserProvider = ({ children, socket }: UserProviderProps): ReactElem
       }
     };
 
-    const handleDisconnect = (reason: string): void => {
-      console.log('Socket disconnected:', reason);
+    const handleDisconnect = (_reason: string): void => {
       setIsConnected(false);
     };
 
-    const handleConnectError = (error: Error): void => {
-      console.log('Socket connection error:', error.message);
+    const handleConnectError = (_error: Error): void => {
       setIsConnected(false);
     };
 

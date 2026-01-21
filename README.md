@@ -9,7 +9,7 @@ A real-time 1:1 chat application built with React, Socket.IO, and TypeScript.
 - **Chat Requests** - Send and receive chat requests between users
 - **Busy User Handling** - Handle cases when target user is already in a chat (POC only)
 - **Multi-Tab Prevention** - Prevents same user from opening multiple tabs
-- **Chat History** - Persisted locally in browser storage
+- **Chat History** - Persisted locally in browser local storage (POC only)
 - **Auto-Reconnection** - Automatic reconnection on network issues
 - **Context API** - React context api to manage state
 
